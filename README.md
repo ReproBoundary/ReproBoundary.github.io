@@ -6,4 +6,7 @@ This repository publishes the ReproBoundary benchmark website at
 The benchmark code, task pool, evaluators, and release documentation are in
 <https://github.com/ReproBoundary/ReproBoundary>.
 
-Result submissions are accepted by email at `endlesssalaxy@outlook.com`.
+The site presents the frozen leaderboard, manuscript-derived construction and
+failure analysis, the 47-task explorer, and the evidence-package submission
+requirements. The full submission guide is at
+<https://github.com/ReproBoundary/ReproBoundary/blob/main/docs/SUBMIT_A_RUN.md>.
