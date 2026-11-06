@@ -1,67 +1,49 @@
 {
-  "schema_version": "1.0",
-  "title": "ReproBoundary frozen main-results leaderboard",
-  "freeze_date": "2026-10-11",
+  "schema_version": "2.0",
+  "title": "ReproBoundary paper main-results leaderboard",
+  "source_document": {
+    "name": "paper_reproduce_bench__arxiv_-2.pdf",
+    "sha256": "406a6e43c4accfc252ed8d08d1266796591a5a2708aba31f1fbed167109e2577",
+    "table": 4,
+    "page": 7
+  },
   "cohort": {
-    "description": "47 frozen paper-to-code tasks evaluated with 9 model-agent configurations",
+    "description": "47 paper-reproduction tasks evaluated with 9 model-framework configurations",
     "task_count": 47,
     "configuration_count": 9,
     "run_count": 423,
     "denominator_per_configuration": 47
   },
   "ranking": {
-    "field": "strict_success",
+    "field": "execution_success",
     "direction": "descending",
     "tie_policy": "competition ranking"
   },
   "field_definitions": {
-    "execution": "Count where execution_success is true in the stage ledger.",
-    "delivery": "Count where delivery_verdict is PASS in the frozen strict ledger.",
-    "replay_match": "Count where replay.status is MATCH in the frozen strict ledger.",
-    "strict_success": "Count where final_verdict is STRICT_SUCCESS in the frozen strict ledger.",
-    "unresolved": "Count where final_verdict is neither STRICT_SUCCESS nor STRICT_FAILURE."
+    "execution_success": "Execution success rate reported in paper Table 4.",
+    "pgap": "Performance gap percentage; lower is better.",
+    "time_hours": "Mean elapsed time in hours over runs with available records.",
+    "input_tokens_m": "Mean input tokens in millions over runs with available records.",
+    "output_tokens_m": "Mean output tokens in millions over runs with available records.",
+    "exploit_rate": "Exploit rate percentage reported in paper Table 4."
   },
-  "source_artifacts": [
-    {
-      "name": "MAIN_EXPERIMENT_FACT_CHECK.json",
-      "sha256": "abbc916177547722a38d148ab389dc4cbab11fc813b431d4a4e59c29cc04353b",
-      "publicly_bundled": false
-    },
-    {
-      "name": "primary_failure_423.jsonl",
-      "sha256": "0f340fa0597c880efc06788b4efb4b7b0fb28923fe50d7da4a729b9c55ea285a",
-      "publicly_bundled": false
-    },
-    {
-      "name": "CONVERGED_STRICT_423_LEDGER_V3_20261011.jsonl",
-      "sha256": "ecc4d3c47ca7740e09f096a1b204f4db0822101155eba2d1613bf372ef48c51b",
-      "publicly_bundled": false
-    }
-  ],
   "rows": [
-    {"rank": 1, "model": "gpt-5.6-sol", "agent": "codex", "denominator": 47, "execution": 25, "delivery": 33, "replay_match": 25, "strict_success": 21, "unresolved": 0},
-    {"rank": 2, "model": "deepseek-v4-pro", "agent": "claude", "denominator": 47, "execution": 13, "delivery": 17, "replay_match": 13, "strict_success": 11, "unresolved": 0},
-    {"rank": 3, "model": "k3", "agent": "claude", "denominator": 47, "execution": 12, "delivery": 17, "replay_match": 16, "strict_success": 9, "unresolved": 1},
-    {"rank": 3, "model": "glm-5.2", "agent": "mini", "denominator": 47, "execution": 10, "delivery": 14, "replay_match": 11, "strict_success": 9, "unresolved": 1},
-    {"rank": 5, "model": "k3", "agent": "kimi-code", "denominator": 47, "execution": 15, "delivery": 21, "replay_match": 18, "strict_success": 8, "unresolved": 3},
-    {"rank": 6, "model": "glm-5.2", "agent": "claude", "denominator": 47, "execution": 10, "delivery": 12, "replay_match": 11, "strict_success": 7, "unresolved": 2},
-    {"rank": 7, "model": "deepseek-v4-pro", "agent": "dsh", "denominator": 47, "execution": 8, "delivery": 14, "replay_match": 8, "strict_success": 5, "unresolved": 0},
-    {"rank": 7, "model": "gpt-5.6-sol", "agent": "claude", "denominator": 47, "execution": 5, "delivery": 13, "replay_match": 5, "strict_success": 5, "unresolved": 0},
-    {"rank": 9, "model": "claude-opus-4-8-cc", "agent": "claude", "denominator": 47, "execution": 3, "delivery": 4, "replay_match": 4, "strict_success": 3, "unresolved": 0}
+    {"rank": 1, "model": "GPT-5.6-sol", "framework": "Codex", "execution_success": 53.2, "pgap": 38.1, "time_hours": 5.31, "input_tokens_m": 82.49, "output_tokens_m": 0.092, "exploit_rate": 12.8},
+    {"rank": 2, "model": "K3", "framework": "Kimi Code", "execution_success": 31.9, "pgap": 42.1, "time_hours": 6.16, "input_tokens_m": 25.61, "output_tokens_m": 0.076, "exploit_rate": 23.8},
+    {"rank": 3, "model": "DeepSeek V4 Pro", "framework": "Claude Code", "execution_success": 27.7, "pgap": 40.3, "time_hours": 4.66, "input_tokens_m": 53.83, "output_tokens_m": 0.140, "exploit_rate": 19.1},
+    {"rank": 4, "model": "K3", "framework": "Claude Code", "execution_success": 25.5, "pgap": 49.0, "time_hours": 6.89, "input_tokens_m": 34.97, "output_tokens_m": 0.096, "exploit_rate": 20.0},
+    {"rank": 5, "model": "GLM-5.2", "framework": "Claude Code", "execution_success": 21.3, "pgap": 67.5, "time_hours": 3.26, "input_tokens_m": 34.18, "output_tokens_m": 0.185, "exploit_rate": 11.1},
+    {"rank": 5, "model": "GLM-5.2", "framework": "Mini-SWE", "execution_success": 21.3, "pgap": 39.4, "time_hours": 9.75, "input_tokens_m": 10.35, "output_tokens_m": 0.062, "exploit_rate": 17.4},
+    {"rank": 7, "model": "DeepSeek V4 Pro", "framework": "DSH", "execution_success": 17.0, "pgap": 51.5, "time_hours": 5.55, "input_tokens_m": 57.41, "output_tokens_m": 0.160, "exploit_rate": 29.8},
+    {"rank": 8, "model": "GPT-5.6-sol", "framework": "Claude Code", "execution_success": 10.6, "pgap": 77.7, "time_hours": 4.07, "input_tokens_m": 10.91, "output_tokens_m": 0.018, "exploit_rate": 4.3},
+    {"rank": 9, "model": "Claude Opus 4.8", "framework": "Claude Code", "execution_success": 6.4, "pgap": 62.2, "time_hours": 2.12, "input_tokens_m": 12.07, "output_tokens_m": 0.053, "exploit_rate": 14.9}
   ],
   "totals": {
-    "denominator": 423,
-    "execution": 101,
-    "delivery": 145,
-    "replay_match": 111,
-    "strict_success": 78,
-    "strict_failure": 338,
-    "unresolved": 7
-  },
-  "interpretation": [
-    "Execution, delivery, replay match, and strict success are independently checked gates and must not be read as an attrition funnel.",
-    "A replay match alone is not strict reproduction success.",
-    "The 71/423 security-fused view is a separate post-freeze analysis and does not replace the 78/423 frozen strict result.",
-    "No PGap, runtime, or token aggregate is published because no frozen end-to-end aggregate was available for this release."
-  ]
+    "execution_success": 23.9,
+    "pgap": 52.0,
+    "time_hours": 5.33,
+    "input_tokens_m": 35.47,
+    "output_tokens_m": 0.092,
+    "exploit_rate": 16.9
+  }
 }

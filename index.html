@@ -64,15 +64,15 @@
     <section class="section section-light" id="leaderboard">
       <div class="container">
         <h2 class="section-title">Leaderboard</h2>
-        <p class="section-lead">Frozen results for 47 tasks across nine model-agent configurations. Ranking uses strict reproduction success; every cell reports count / 47 (rate).</p>
+        <p class="section-lead">Main results from Table 4 of the paper for 47 tasks across nine model-framework configurations. Ranking uses execution success.</p>
         <div class="table-wrap leaderboard-wrap">
           <table class="leaderboard-table">
-            <thead><tr><th scope="col">Rank</th><th scope="col">Model</th><th scope="col">Agent</th><th scope="col">Execution</th><th scope="col">Delivery</th><th scope="col">Replay match</th><th scope="col">Strict success</th><th scope="col">Unresolved</th></tr></thead>
-            <tbody id="leaderboard-body"><tr><td colspan="8">Loading frozen results...</td></tr></tbody>
+            <thead><tr><th scope="col">Rank</th><th scope="col">Base model</th><th scope="col">Framework</th><th scope="col">Exec. success (%)</th><th scope="col">PGap (%)</th><th scope="col">Time (h)</th><th scope="col">Input tokens (M)</th><th scope="col">Output tokens (M)</th><th scope="col">Exploit rate (%)</th></tr></thead>
+            <tbody id="leaderboard-body"><tr><td colspan="9">Loading paper results...</td></tr></tbody>
             <tfoot id="leaderboard-total"></tfoot>
           </table>
         </div>
-        <p id="leaderboard-note" class="evidence-note">Frozen on 2026-10-11. Execution, delivery, replay match, and strict success are independently checked gates; they are not an attrition funnel. A replay match alone is not a strict success. <a href="data/leaderboard.json">Methods and provenance</a>.</p>
+        <p id="leaderboard-note" class="evidence-note">Values reproduce Table 4 of the paper. PGap assigns 1 to runs without a valid comparable result; time and token values are means over runs with available records. Safety and scientific execution are reported separately. <a href="data/leaderboard.json">Machine-readable table</a>.</p>
       </div>
     </section>
 
@@ -84,12 +84,12 @@
         <p class="section-lead">The manuscript comparison places ReproBoundary alongside benchmarks that evaluate different parts of scientific reproduction. The table reproduces the manuscript dimensions and describes evaluation design, not benchmark quality.</p>
         <div class="table-wrap">
           <table class="comparison-table">
-            <thead><tr><th scope="col">Benchmark</th><th scope="col">Papers</th><th scope="col">QA</th><th scope="col">Taxonomy</th><th scope="col">Evaluation metrics</th><th scope="col">Textual input</th><th scope="col">Visual input</th></tr></thead>
+            <thead><tr><th scope="col">Benchmark</th><th scope="col">Papers</th><th scope="col">Source</th><th scope="col">Evaluation metrics</th><th scope="col">Safety</th><th scope="col">Independent rerun</th></tr></thead>
             <tbody>
-              <tr><td><strong>PaperBench</strong></td><td>20</td><td>579</td><td>task</td><td>Corr.</td><td>Yes</td><td>No</td></tr>
-              <tr><td><strong>SA-Bench</strong></td><td>30</td><td>270K</td><td>task</td><td>LLMLogScore</td><td>Yes</td><td>Yes</td></tr>
-              <tr><td><strong>RECLAIM</strong></td><td>100</td><td>—</td><td>task</td><td>—</td><td>No</td><td>Yes</td></tr>
-              <tr class="highlight-row"><td><strong>ReproBoundary</strong></td><td>47</td><td>61.3K</td><td>content</td><td>Conc., F1-like</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td><strong>PaperBench</strong></td><td>20</td><td>ICML</td><td>Mean weighted Replication Score</td><td>No</td><td>Yes</td></tr>
+              <tr><td><strong>SA-Bench</strong></td><td>30</td><td>ICLR, ICML, and NeurIPS</td><td>Mean Semantic Alignment Score</td><td>No</td><td>No</td></tr>
+              <tr><td><strong>RECLAIM</strong></td><td>100</td><td>NeurIPS</td><td>Mean Reproduction Score, Reproduction Rate</td><td>No</td><td>No</td></tr>
+              <tr class="highlight-row"><td><strong>ReproBoundary</strong></td><td>47</td><td>ACL, EMNLP, CVPR, ICCV, ICML, ICLR, and NeurIPS</td><td>Execution success, Performance gap, Time/Token usage, and Safety</td><td>Yes</td><td>Yes</td></tr>
             </tbody>
           </table>
         </div>
@@ -116,16 +116,14 @@
           <table class="taxonomy-table">
             <thead><tr><th scope="col">Category</th><th scope="col">Subcategory</th><th scope="col">Definition</th></tr></thead>
             <tbody>
-              <tr><th rowspan="2" scope="rowgroup">Understanding</th><td>Method understanding</td><td>Omits or misinterprets a required step of the paper's method.</td></tr>
+              <tr><th rowspan="3" scope="rowgroup">Understanding</th><td>Method understanding</td><td>Omits or misinterprets a required step of the paper's method.</td></tr>
               <tr><td>Task understanding</td><td>Misinterprets the required metric, evaluation procedure, or task instructions.</td></tr>
-              <tr><th rowspan="3" scope="rowgroup">Planning</th><td>Experimental setup</td><td>Chooses a setup that cannot produce a meaningful result for the target metric.</td></tr>
-              <tr><td>Method implementation</td><td>Implements a method component incorrectly, such as an incompatible reward function.</td></tr>
-              <tr><td>Interface alignment</td><td>Uses incompatible formats, arguments, or return types across pipeline components.</td></tr>
-              <tr><th rowspan="6" scope="rowgroup">Execution</th><td>Prerequisite checks</td><td>Starts without checking required models, data, or evaluation resources.</td></tr>
-              <tr><td>Dependency compatibility</td><td>Fails to resolve required software dependencies.</td></tr>
+              <tr><td>Experimental understanding</td><td>Misunderstands how to configure or implement the required experiment.</td></tr>
+              <tr><th rowspan="6" scope="rowgroup">Execution</th><td>Prerequisite checks</td><td>Starts execution without checking the availability of required models, data, or evaluation resources.</td></tr>
+              <tr><td>Dependency compatibility</td><td>Fails to resolve required software dependencies within the time budget.</td></tr>
               <tr><td>Repeated unsuccessful repair</td><td>Repeatedly modifies or reruns code without resolving the underlying error.</td></tr>
-              <tr><td>Resource allocation</td><td>Allocates time or compute in a way that prevents required work from finishing.</td></tr>
-              <tr><td>Process interruption</td><td>A required process terminates, disconnects, or crashes during collection.</td></tr>
+              <tr><td>Resource allocation</td><td>Allocates time or compute in a way that prevents completion of required work.</td></tr>
+              <tr><td>Process interruption</td><td>A required process is terminated, disconnects from the runner, or crashes during result collection.</td></tr>
               <tr><td>Session or parsing failure</td><td>A session is lost or the client cannot parse execution or network responses.</td></tr>
               <tr><th rowspan="2" scope="rowgroup">Delivery</th><td>Invalid result fields</td><td>Submits fields whose format, type, or meaning does not match the schema.</td></tr>
               <tr><td>Incorrect output path</td><td>Writes required files outside the designated submission path.</td></tr>

@@ -55,32 +55,27 @@ function populateDomains(domains) {
   });
 }
 
-function scoreCell(value, denominator) {
-  const rate = (100 * value / denominator).toFixed(1);
-  return `${value}/${denominator} <span class="score-rate">${rate}%</span>`;
-}
-
 async function loadLeaderboard() {
   try {
     const response = await fetch("./data/leaderboard.json");
     if (!response.ok) throw new Error(`Leaderboard data returned ${response.status}`);
     const payload = await response.json();
-    const denominator = payload.cohort.denominator_per_configuration;
     leaderboardBody.innerHTML = payload.rows.map((row) => `
       <tr>
         <td>${row.rank}</td>
         <td><strong>${escapeHTML(row.model)}</strong></td>
-        <td>${escapeHTML(row.agent)}</td>
-        <td>${scoreCell(row.execution, denominator)}</td>
-        <td>${scoreCell(row.delivery, denominator)}</td>
-        <td>${scoreCell(row.replay_match, denominator)}</td>
-        <td class="strict-score">${scoreCell(row.strict_success, denominator)}</td>
-        <td>${row.unresolved}</td>
+        <td>${escapeHTML(row.framework)}</td>
+        <td class="strict-score">${row.execution_success.toFixed(1)}</td>
+        <td>${row.pgap.toFixed(1)}</td>
+        <td>${row.time_hours.toFixed(2)}</td>
+        <td>${row.input_tokens_m.toFixed(2)}</td>
+        <td>${row.output_tokens_m.toFixed(3)}</td>
+        <td>${row.exploit_rate.toFixed(1)}</td>
       </tr>
     `).join("");
-    leaderboardTotal.innerHTML = `<tr><th colspan="3" scope="row">All 423 runs</th><td>${payload.totals.execution}/423</td><td>${payload.totals.delivery}/423</td><td>${payload.totals.replay_match}/423</td><td>${payload.totals.strict_success}/423</td><td>${payload.totals.unresolved}</td></tr>`;
+    leaderboardTotal.innerHTML = `<tr><th colspan="3" scope="row">Total</th><td>${payload.totals.execution_success.toFixed(1)}</td><td>${payload.totals.pgap.toFixed(1)}</td><td>${payload.totals.time_hours.toFixed(2)}</td><td>${payload.totals.input_tokens_m.toFixed(2)}</td><td>${payload.totals.output_tokens_m.toFixed(3)}</td><td>${payload.totals.exploit_rate.toFixed(1)}</td></tr>`;
   } catch (error) {
-    leaderboardBody.innerHTML = '<tr><td colspan="8">Frozen leaderboard data could not be loaded.</td></tr>';
+    leaderboardBody.innerHTML = '<tr><td colspan="9">Paper results could not be loaded.</td></tr>';
     console.error(error);
   }
 }
