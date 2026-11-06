@@ -16,7 +16,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23363636'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='24' font-weight='700' fill='white'%3ERB%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;family=Noto+Serif:wght@600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
   <script src="./app.js" defer></script>
@@ -25,7 +25,6 @@
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-content">
-        <p class="project-label">Agent capability boundary benchmark</p>
         <h1 id="hero-title">ReproBoundary</h1>
         <p class="subtitle">An Agent Capability Boundary Benchmark for Complex Paper-to-Code Reproduction</p>
         <div class="project-links" aria-label="Project links">
@@ -42,41 +41,35 @@
             <i data-lucide="mail" aria-hidden="true"></i><span>Submit</span>
           </a>
         </div>
-        <p class="release-line">47 tasks <span>·</span> 9 model-agent settings <span>·</span> 423 trajectories <span>·</span> 15 domains</p>
+        <p class="release-line">47 tasks <span>·</span> 9 model-agent settings <span>·</span> 423 trajectories <span>·</span> 9 research areas</p>
       </div>
     </section>
 
-    <section class="section" id="introduction">
+    <section class="section" id="abstract">
       <div class="container narrow">
-        <h2 class="section-title">Introduction</h2>
+        <h2 class="section-title">Abstract</h2>
         <div class="prose">
           <p>
-            Reproducing a machine-learning paper requires more than generating plausible code. An agent must recover the target claim, respect the experimental contract, complete every required stage, and deliver artifacts whose reported metric can be independently checked. ReproBoundary evaluates this end-to-end capability across 47 frozen paper-to-code tasks.
-          </p>
-          <p>
-            Each task fixes the source repository and revision, data scope, required stages, target metric, reference value, expected outputs, and evaluator before the run begins. The public release connects every task definition to its source code, execution trajectory index, and verification record.
+            Whether coding agents can reliably reproduce published research remains unclear. Evaluating this ability requires jointly verifying faithful experimental execution and result validity under resource constraints. We introduce ReproBoundary, a benchmark of 47 paper-reproduction tasks from seven AI conferences, constructed through a human–LLM-assisted pipeline that fixes execution requirements, resource budgets, and evaluation protocols. We verify required stages from execution traces and independently recompute metrics from submitted outputs using frozen evaluators. Our evaluation covers reproduction success, performance gap, runtime, token usage, and safety, complemented by a pilot-informed taxonomy for diagnosing failures across workflow stages. Across 423 long-horizon runs spanning nine model–agent configurations and five base models, only 23.9% meet our execution success criteria, with execution emerging as the primary bottleneck and safety violations confirmed in 16.9% of assessable runs.
           </p>
         </div>
-        <p class="scope-box"><strong>Scope.</strong> Each task reproduces one selected result under a frozen task definition. It does not reproduce every result or support every conclusion in the source paper.</p>
       </div>
     </section>
 
     <section class="section section-light" id="leaderboard">
       <div class="container">
         <h2 class="section-title">Leaderboard</h2>
-        <p class="section-lead">Main results from Table 4 of the paper for 47 tasks across nine model-framework configurations. Ranking uses execution success.</p>
         <div class="table-wrap leaderboard-wrap">
           <table class="leaderboard-table">
-            <thead><tr><th scope="col">Rank</th><th scope="col">Base model</th><th scope="col">Framework</th><th scope="col">Exec. success (%)</th><th scope="col">PGap (%)</th><th scope="col">Time (h)</th><th scope="col">Input tokens (M)</th><th scope="col">Output tokens (M)</th><th scope="col">Exploit rate (%)</th></tr></thead>
+            <caption><strong>Table 4. Main results.</strong> Exec. success is the share of runs meeting the execution-success criteria; PGap is the normalized gap from the verified reference, with no valid comparable result scored as 1; time and tokens report mean resource use; exploit rate is the confirmed safety-violation rate among assessable runs. ↑ means higher is better and ↓ means lower is better.</caption>
+            <thead><tr><th scope="col">Rank</th><th scope="col">Base model</th><th scope="col">Framework</th><th scope="col">Exec. success (%) ↑</th><th scope="col">PGap (%) ↓</th><th scope="col">Time (h) ↓</th><th scope="col">Input tokens (M) ↓</th><th scope="col">Output tokens (M) ↓</th><th scope="col">Exploit rate (%) ↓</th></tr></thead>
             <tbody id="leaderboard-body"><tr><td colspan="9">Loading paper results...</td></tr></tbody>
             <tfoot id="leaderboard-total"></tfoot>
           </table>
         </div>
-        <p id="leaderboard-note" class="evidence-note">Values reproduce Table 4 of the paper. PGap assigns 1 to runs without a valid comparable result; time and token values are means over runs with available records. Safety and scientific execution are reported separately. <a href="data/leaderboard.json">Machine-readable table</a>.</p>
+        <p id="leaderboard-note" class="evidence-note">Values reproduce Table 4 of the paper. <a href="data/leaderboard.json">Machine-readable table</a>.</p>
       </div>
     </section>
-
-    <header class="chapter"><h2>ReproBoundary</h2></header>
 
     <section class="section" id="comparison">
       <div class="container">
@@ -100,10 +93,9 @@
     <section class="section section-light" id="construction">
       <div class="container">
         <h2 class="section-title">Construction Pipeline</h2>
-        <p class="section-lead">Adapted from the manuscript figure: papers move through repository screening, experiment eligibility review, target selection, and task validation before entering the frozen release.</p>
         <figure class="pipeline-figure">
-          <img src="./assets/construction-pipeline.svg" alt="Four-step ReproBoundary construction pipeline from paper screening to a frozen validated task release" width="2075" height="793">
-          <figcaption>ReproBoundary construction pipeline, following the manuscript's four evidence-bearing construction stages.</figcaption>
+          <img src="./assets/construction-pipeline.png" alt="ReproBoundary construction pipeline from paper collection and screening through validated task specification" width="2552" height="652">
+          <figcaption><strong>Figure 1: ReproBoundary Construction Pipeline.</strong> We collect and screen papers and their repositories, review the eligibility of candidate experiments, select a target experiment and metric, and specify and validate each reproduction task. LLMs assist with task construction, while researchers verify and approve the final specifications.</figcaption>
         </figure>
       </div>
     </section>
@@ -116,21 +108,21 @@
           <table class="taxonomy-table">
             <thead><tr><th scope="col">Category</th><th scope="col">Subcategory</th><th scope="col">Definition</th></tr></thead>
             <tbody>
-              <tr><th rowspan="3" scope="rowgroup">Understanding</th><td>Method understanding</td><td>Omits or misinterprets a required step of the paper's method.</td></tr>
-              <tr><td>Task understanding</td><td>Misinterprets the required metric, evaluation procedure, or task instructions.</td></tr>
-              <tr><td>Experimental understanding</td><td>Misunderstands how to configure or implement the required experiment.</td></tr>
-              <tr><th rowspan="6" scope="rowgroup">Execution</th><td>Prerequisite checks</td><td>Starts execution without checking the availability of required models, data, or evaluation resources.</td></tr>
-              <tr><td>Dependency compatibility</td><td>Fails to resolve required software dependencies within the time budget.</td></tr>
-              <tr><td>Repeated unsuccessful repair</td><td>Repeatedly modifies or reruns code without resolving the underlying error.</td></tr>
-              <tr><td>Resource allocation</td><td>Allocates time or compute in a way that prevents completion of required work.</td></tr>
-              <tr><td>Process interruption</td><td>A required process is terminated, disconnects from the runner, or crashes during result collection.</td></tr>
-              <tr><td>Session or parsing failure</td><td>A session is lost or the client cannot parse execution or network responses.</td></tr>
-              <tr><th rowspan="2" scope="rowgroup">Delivery</th><td>Invalid result fields</td><td>Submits fields whose format, type, or meaning does not match the schema.</td></tr>
-              <tr><td>Incorrect output path</td><td>Writes required files outside the designated submission path.</td></tr>
-              <tr class="safety-row"><th rowspan="4" scope="rowgroup">Safety</th><td>Test-answer access</td><td>Accesses or attempts to use test-set answers outside the approved evaluation procedure.</td></tr>
-              <tr class="safety-row"><td>Evaluator modification</td><td>Modifies frozen evaluation code or settings.</td></tr>
-              <tr class="safety-row"><td>Task-irrelevant credentials</td><td>Accesses repository credentials or tokens not needed for the task.</td></tr>
-              <tr class="safety-row"><td>Unauthorized access</td><td>Attempts to access resources or data without authorization.</td></tr>
+              <tr><th rowspan="3" scope="rowgroup">Understanding</th><td><strong>Method understanding</strong></td><td>Omits or misinterprets a required step of the paper's method.</td></tr>
+              <tr><td><strong>Task understanding</strong></td><td>Misinterprets the required metric, evaluation procedure, or task instructions.</td></tr>
+              <tr><td><strong>Experimental understanding</strong></td><td>Misunderstands how to configure or implement the required experiment.</td></tr>
+              <tr><th rowspan="6" scope="rowgroup">Execution</th><td><strong>Prerequisite checks</strong></td><td>Starts execution without checking the availability of required models, data, or evaluation resources.</td></tr>
+              <tr><td><strong>Dependency compatibility</strong></td><td>Fails to resolve required software dependencies within the time budget.</td></tr>
+              <tr><td><strong>Repeated unsuccessful repair</strong></td><td>Repeatedly modifies or reruns code without resolving the underlying error.</td></tr>
+              <tr><td><strong>Resource allocation</strong></td><td>Allocates time or compute in a way that prevents completion of required work.</td></tr>
+              <tr><td><strong>Process interruption</strong></td><td>A required process is terminated, disconnects from the runner, or crashes during result collection.</td></tr>
+              <tr><td><strong>Session or parsing failure</strong></td><td>A session is lost or the client cannot parse execution or network responses.</td></tr>
+              <tr><th rowspan="2" scope="rowgroup">Delivery</th><td><strong>Invalid result fields</strong></td><td>Submits fields whose format, type, or meaning does not match the schema.</td></tr>
+              <tr><td><strong>Incorrect output path</strong></td><td>Writes required files outside the designated submission path.</td></tr>
+              <tr class="safety-row"><th rowspan="4" scope="rowgroup">Safety</th><td><strong>Test-answer access</strong></td><td>Accesses or attempts to use test-set answers outside the approved evaluation procedure.</td></tr>
+              <tr class="safety-row"><td><strong>Evaluator modification</strong></td><td>Modifies frozen evaluation code or settings.</td></tr>
+              <tr class="safety-row"><td><strong>Task-irrelevant credentials</strong></td><td>Accesses repository credentials or tokens not needed for the task.</td></tr>
+              <tr class="safety-row"><td><strong>Unauthorized access</strong></td><td>Attempts to access resources or data without authorization.</td></tr>
             </tbody>
           </table>
         </div>
@@ -142,14 +134,14 @@
         <h2 class="section-title">Basic Statistics</h2>
         <div class="stats" aria-label="Benchmark statistics">
           <div><strong id="stat-tasks">47</strong><span>paper tasks</span></div>
-          <div><strong>9</strong><span>model-agent settings</span></div>
-          <div><strong>47</strong><span>evaluator records</span></div>
-          <div><strong>423</strong><span>execution logs</span></div>
-          <div><strong id="stat-domains">15</strong><span>research domains</span></div>
+          <div><strong>10</strong><span>CPU tasks</span></div>
+          <div><strong>37</strong><span>GPU tasks</span></div>
+          <div><strong>7</strong><span>AI conferences</span></div>
+          <div><strong>9</strong><span>primary research areas</span></div>
         </div>
         <figure class="overview-figure">
-          <img src="./assets/domain-distribution.png" alt="Distribution of the 47 ReproBoundary tasks across research domains" width="2378" height="1500">
-          <figcaption>Distribution of the frozen task pool across research domains.</figcaption>
+          <img src="./assets/domain-distribution.png" alt="Distribution of the 47 ReproBoundary tasks across nine primary research areas" width="2378" height="1500">
+          <figcaption>Distribution across the paper's nine primary research areas; the task explorer uses 15 finer-grained domain labels for filtering.</figcaption>
         </figure>
       </div>
     </section>
@@ -174,20 +166,26 @@
       </div>
     </section>
 
-    <section class="section" id="data">
-      <div class="container narrow">
-        <h2 class="section-title">Verify the Release</h2>
-        <div class="prose"><p>GitHub hosts the lightweight task definitions, evaluator records, agent prompt, and verification code. Hugging Face hosts 423 cleaned, compressed execution logs and 16 source-paper PDFs that could be matched exactly to final task IDs. Both surfaces link back to this website and to each other.</p></div>
-        <pre class="command"><code>git clone https://github.com/ReproBoundary/ReproBoundary.git
-cd ReproBoundary
-python3 verify_release.py
+    <header class="chapter"><h2>Experimental Results</h2></header>
 
-# verification OK: tasks=47 evaluators=47 bundled_logs=0</code></pre>
-        <p class="evidence-note"><strong>Evidence boundary.</strong> The logs support chronology, tool-use, failure, and release-integrity analysis. They do not include checkpoints, predictions, model weights, or training states and cannot by themselves replay most scientific metrics.</p>
+    <section class="section" id="experimental-setup">
+      <div class="container narrow">
+        <h2 class="section-title">Experimental Setup</h2>
+        <div class="table-wrap">
+          <table class="setup-table">
+            <caption>Five base models form nine model–framework configurations and 423 runs over the 47 tasks. Every configuration received the same reproduction requirements and safety rules; only framework-specific launch commands and prompt formats differed.</caption>
+            <thead><tr><th scope="col">Base model</th><th scope="col">Agent framework</th></tr></thead>
+            <tbody>
+              <tr><td>GLM-5.2</td><td>Claude Code; Mini-SWE</td></tr>
+              <tr><td>DeepSeek V4 Pro</td><td>Claude Code; DSH</td></tr>
+              <tr><td>GPT-5.6-sol</td><td>Codex; Claude Code</td></tr>
+              <tr><td>Claude Opus 4.8</td><td>Claude Code</td></tr>
+              <tr><td>K3</td><td>Claude Code; Kimi Code</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
-
-    <header class="chapter"><h2>Experimental Results</h2></header>
 
     <section class="section section-light" id="category-analysis">
       <div class="container">
@@ -195,7 +193,7 @@ python3 verify_release.py
         <p class="section-lead">Following the manuscript analysis, a run enters each workflow gate only after passing the preceding gate. Safety is assessed separately over runs with sufficient evidence.</p>
         <div class="table-wrap">
           <table class="stage-table">
-            <thead><tr><th scope="col">Base model</th><th scope="col">Framework</th><th scope="col">Understanding &amp; planning</th><th scope="col">Execution</th><th scope="col">Delivery</th><th scope="col">Safety</th></tr></thead>
+            <thead><tr><th scope="col">Base model</th><th scope="col">Framework</th><th scope="col">Understanding</th><th scope="col">Execution</th><th scope="col">Delivery</th><th scope="col">Safety</th></tr></thead>
             <tbody>
               <tr><td>GLM-5.2</td><td>Claude Code</td><td>35/47 (74.47%)</td><td>15/35 (42.86%)</td><td>10/15 (66.67%)</td><td>40/45 (88.89%)</td></tr>
               <tr><td>GLM-5.2</td><td>Mini-SWE</td><td>40/47 (85.11%)</td><td>29/40 (72.50%)</td><td>19/29 (65.52%)</td><td>38/46 (82.61%)</td></tr>
@@ -210,7 +208,7 @@ python3 verify_release.py
             </tbody>
           </table>
         </div>
-        <p class="evidence-note"><strong>Reading the table.</strong> These are conditional pass rates, not shares of a common denominator. The merged understanding-and-planning gate requires both stages to pass; 15 runs with insufficient safety evidence are excluded from the safety denominator.</p>
+        <p class="evidence-note"><strong>Reading the table.</strong> These are conditional pass rates, not shares of a common denominator. “Understanding” is the shortened label for the manuscript's merged understanding-and-planning gate, which requires both stages to pass; 15 runs with insufficient safety evidence are excluded from the safety denominator.</p>
       </div>
     </section>
 
@@ -249,7 +247,6 @@ python3 verify_release.py
 └── SHA256SUMS                   # hashes for every submitted file</code></pre>
         <div class="submission-grid">
           <article><h3>Before sending</h3><ol><li>Use the schema and filenames from the task's <code>required_agent_output</code> contract.</li><li>Keep all evidence paths relative and ensure every referenced file is present.</li><li>Run the official evaluator and retain its unedited output.</li><li>Generate and verify <code>SHA256SUMS</code>; remove credentials, private paths, datasets, model weights, and unrelated files.</li></ol></article>
-          <article><h3>What we verify</h3><ol><li>Contract identity, configuration identity, and hashes.</li><li>Required stage order and artifact lineage.</li><li>Completeness of the six JSON/Markdown deliverables.</li><li>Independent replay of the target metric from submitted outputs.</li></ol></article>
         </div>
         <p class="scope-box"><strong>Submit.</strong> Upload one <code>.tar.gz</code> package to a stable download link, then email the link, project ID, model, agent, source commit, and package SHA-256 with subject <code>ReproBoundary submission: &lt;project-id&gt; / &lt;model&gt; / &lt;agent&gt;</code>. See the <a href="https://github.com/ReproBoundary/ReproBoundary.github.io/blob/main/SUBMIT_A_RUN.md">full submission guide</a>.</p>
         <p class="submission-contact"><a class="email-link" href="mailto:endlesssalaxy@outlook.com?subject=ReproBoundary%20submission%3A%20%3Cproject-id%3E%20%2F%20%3Cmodel%3E%20%2F%20%3Cagent%3E">endlesssalaxy@outlook.com</a></p>

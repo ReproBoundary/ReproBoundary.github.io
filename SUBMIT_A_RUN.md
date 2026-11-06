@@ -87,9 +87,3 @@ Upload the archive to a stable download link. Email
 - SHA-256 of the archive;
 - a short note stating whether the run claims a complete reproduction, a
   partial result, or no metric.
-
-We first check contract identity, configuration identity, package completeness,
-hashes, stage order, and artifact lineage. A leaderboard entry is added only
-after the target metric can be independently replayed and the strict verdict is
-resolved. Delivery, replay match, and strict reproduction remain separate
-verdicts.

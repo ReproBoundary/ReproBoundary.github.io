@@ -88,7 +88,6 @@ async function loadTasks() {
     state.tasks = payload.tasks;
     populateDomains(payload.summary.domains);
     document.querySelector("#stat-tasks").textContent = payload.summary.task_count;
-    document.querySelector("#stat-domains").textContent = payload.summary.domain_count;
     renderTasks();
   } catch (error) {
     taskCount.textContent = "Task inventory unavailable";
