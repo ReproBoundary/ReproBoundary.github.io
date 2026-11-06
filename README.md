@@ -9,4 +9,4 @@ The benchmark code, task pool, evaluators, and release documentation are in
 The site presents the frozen leaderboard, manuscript-derived construction and
 failure analysis, the 47-task explorer, and the evidence-package submission
 requirements. The full submission guide is at
-<https://github.com/ReproBoundary/ReproBoundary/blob/main/SUBMIT_A_RUN.md>.
+[`SUBMIT_A_RUN.md`](SUBMIT_A_RUN.md).
