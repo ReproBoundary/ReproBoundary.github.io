@@ -95,7 +95,7 @@
         <h2 class="section-title">Construction Pipeline</h2>
         <figure class="pipeline-figure">
           <img src="./assets/construction-pipeline.png" alt="ReproBoundary construction pipeline from paper collection and screening through validated task specification" width="2552" height="652">
-          <figcaption><strong>Figure 1: ReproBoundary Construction Pipeline.</strong> We collect and screen papers and their repositories, review the eligibility of candidate experiments, select a target experiment and metric, and specify and validate each reproduction task. LLMs assist with task construction, while researchers verify and approve the final specifications.</figcaption>
+          <figcaption><strong>Figure 1. ReproBoundary Construction Pipeline.</strong> We collect and screen papers and their repositories, review the eligibility of candidate experiments, select a target experiment and metric, and specify and validate each reproduction task. LLMs assist with task construction, while researchers verify and approve the final specifications.</figcaption>
         </figure>
       </div>
     </section>
@@ -141,7 +141,7 @@
         </div>
         <figure class="overview-figure">
           <img src="./assets/domain-distribution.png" alt="Distribution of the 47 ReproBoundary tasks across nine primary research areas" width="2378" height="1500">
-          <figcaption>Distribution across the paper's nine primary research areas; the task explorer uses 15 finer-grained domain labels for filtering.</figcaption>
+          <figcaption><strong>Figure 2. Primary research areas of the 47 benchmark papers.</strong> CV denotes computer vision; RL, reinforcement learning; and ML, machine learning. Each paper is assigned to one primary area. The task explorer uses 15 finer-grained domain labels for filtering.</figcaption>
         </figure>
       </div>
     </section>
@@ -214,8 +214,13 @@
 
     <section class="section" id="failure-analysis">
       <div class="container">
-        <h2 class="section-title">Representative Failure Modes</h2>
-        <p class="section-lead">The manuscript case studies show why stage execution, complete evaluation, machine-verifiable delivery, and safety must be checked independently.</p>
+        <h2 class="section-title">Failure Analysis</h2>
+        <p class="section-lead">The manuscript combines the aggregate distribution of annotated failure events with case studies showing why stage execution, complete evaluation, machine-verifiable delivery, and safety must be checked independently.</p>
+        <figure class="overview-figure">
+          <img src="./assets/failure-distribution.png" alt="Paper figure showing the distribution of failure events across Understanding, Execution, Delivery, and Safety subcategories" width="1969" height="1500">
+          <figcaption><strong>Figure 3. Distribution of failure events.</strong> U, E, D, and S denote subcategories of Understanding, Execution, Delivery, and Safety, respectively; the following number identifies the corresponding subcategory in the failure taxonomy above. Each slice shows a subcategory's share of all events plotted.</figcaption>
+        </figure>
+        <h3 class="subsection-title">Representative Failure Modes</h3>
         <div class="case-grid">
           <article><span>Method fidelity</span><h3>Stages ran, but the method changed</h3><p>A ModalPrompt run completed eight required stages and evaluated all 4,241 examples, but disabled the method-defining <code>cos_sim</code> selector. Pipeline completion did not establish method fidelity.</p></article>
           <article><span>Execution vs. delivery</span><h3>Incomplete work and invalid delivery differ</h3><p>Diffusion Probe stopped at 4,729/5,000 prompts, so its partial metric could not replace the target result. Text Meets Topology completed three-seed evaluation but submitted <code>sample_count</code> with the wrong JSON type.</p></article>
