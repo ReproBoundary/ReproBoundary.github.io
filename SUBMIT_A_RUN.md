@@ -1,8 +1,8 @@
 # Submit a ReproBoundary run
 
-A leaderboard submission is an evidence package, not a reported metric or an
-email message alone. Use the frozen task contract and retain enough evidence
-for an independent metric replay.
+Use the frozen task contract and retain the submitted outputs and execution
+evidence needed for the official evaluator to independently recompute the
+reported metric.
 
 ## Package layout
 
