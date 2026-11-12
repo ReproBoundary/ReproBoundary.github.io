@@ -242,7 +242,7 @@
           <article><h3>Pack and check</h3><pre class="command"><code>python3 pipeline.py pack-submission --run-dir "runs/$PROJECT_ID" --model "$MODEL" --agent "$AGENT" --output "$PROJECT_ID-$MODEL-$AGENT.tar.gz"
 python3 pipeline.py validate-submission "$PROJECT_ID-$MODEL-$AGENT.tar.gz"</code></pre><p>The tool keeps the six frozen v4 deliverables inside <code>submission.json</code>, copies their referenced artifacts, records hashes, and adds a source patch only when needed.</p></article>
         </div>
-        <p class="scope-box"><strong>Submit.</strong> Upload the single <code>.tar.gz</code> file to a stable download link, then email only the link and printed SHA-256 with subject <code>ReproBoundary submission: &lt;project-id&gt; / &lt;model&gt; / &lt;agent&gt;</code>. The remaining metadata is inside <code>submission.json</code>. See the <a href="https://github.com/ReproBoundary/ReproBoundary.github.io/blob/main/SUBMIT_A_RUN.md">full submission guide</a>.</p>
+        <p class="scope-box"><strong>Submit.</strong> Upload the single <code>.tar.gz</code> file to a stable download link, then email only the link and printed SHA-256 with subject <code>ReproBoundary submission: &lt;project-id&gt; / &lt;model&gt; / &lt;agent&gt;</code>. The remaining metadata is inside <code>submission.json</code>. See the <a href="https://github.com/ReproBoundary/ReproBoundary.github.io/blob/main/SUBMIT_A_RUN.md">complete field reference and submission guide</a>.</p>
         <p class="submission-contact"><a class="email-link" href="mailto:endlesssalaxy@outlook.com?subject=ReproBoundary%20submission%3A%20%3Cproject-id%3E%20%2F%20%3Cmodel%3E%20%2F%20%3Cagent%3E">endlesssalaxy@outlook.com</a></p>
       </div>
     </section>
