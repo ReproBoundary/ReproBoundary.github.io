@@ -43,11 +43,71 @@ metadata file.
 `model` and `agent` may contain letters, digits, `.`, `_`, and `-`, must start
 with a letter or digit, and may be at most 80 characters.
 
+### Generated-file template
+
+The following shortened example shows the shape of `submission.json`. The
+packer fills the task-specific objects, byte counts, and hashes; the `...`
+entries below are explanatory placeholders and are not a valid submission by
+themselves.
+
+```json
+{
+  "schema_version": "1.0",
+  "benchmark": "ReproBoundary",
+  "project_id": "016-2025.emnlp.109",
+  "model": "your-model",
+  "agent": "your-agent",
+  "source_commit": "1f3c9bb3ea356e9240389b4a6abbc3b9f8bffdaf",
+  "target_contract_sha256": "79aa2cae76b488fa6622abe140c3f8417068e8fe34922460eb7656ba672bcf27",
+  "claim": "complete_reproduction",
+  "artifact_root": "artifacts",
+  "deliverables": {
+    "DATASET_SELECTION.json": { "...": "embedded task output" },
+    "pipeline-execution.json": { "...": "embedded task output" },
+    "reproduction-report.md": "Executed work, results, failures, and limitations.",
+    "audit.json": { "...": "embedded task output" },
+    "metrics.json": { "...": "embedded task output" },
+    "security-attestation.json": { "...": "embedded task output" }
+  },
+  "files": [
+    {
+      "path": "agent.log.gz",
+      "bytes": 12345,
+      "sha256": "<64 lowercase hexadecimal characters>"
+    },
+    {
+      "path": "artifacts/evaluator/result.json",
+      "bytes": 678,
+      "sha256": "<64 lowercase hexadecimal characters>"
+    }
+  ]
+}
+```
+
+Do not write this outer file by hand. Create the archive with
+`pack-submission`, then inspect the exact generated file with:
+
+```bash
+ARCHIVE="$PROJECT_ID-$MODEL-$AGENT.tar.gz"
+ROOT="${ARCHIVE%.tar.gz}"
+tar -xOf "$ARCHIVE" "$ROOT/submission.json" | python3 -m json.tool
+```
+
+The actual value of `claim` is derived from `metrics.json`; it is never chosen
+to match the desired leaderboard outcome. Likewise, `files` is generated from
+the archive contents, so its paths, byte counts, and hashes must not be edited.
+
 ## Embedded deliverables
 
 All JSON deliverables repeat `schema_version`, `project_id`, and
 `target_contract_sha256`. Their `schema_version` remains `4.0`; the compact
 package does not replace the task contract.
+
+Use the selected task's own `required_agent_output.output_templates` when that
+field is present in `TARGET_EVALUATION.json`. Older contracts instead list
+their required fields under `required_agent_output`; follow those lists and do
+not copy values from another task. The field summaries below explain the
+common shape, while `pack-submission` performs the final task-specific check.
 
 ### `DATASET_SELECTION.json`
 
